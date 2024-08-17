@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     address: DataTypes.STRING,
     district: DataTypes.STRING,
     city: DataTypes.STRING,
-    complemente: DataTypes.STRING
+    complement: DataTypes.STRING
   }, {
     sequelize,
     modelName: 'User',
