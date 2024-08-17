@@ -1,3 +1,4 @@
+
 require('dotenv').config();
 
 module.exports = {
@@ -23,4 +24,3 @@ module.exports = {
     dialect: process.env.DB_DIALECT,
   }
 }
-
