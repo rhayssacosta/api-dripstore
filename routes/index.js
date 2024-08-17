@@ -2,11 +2,10 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController');
-// const categoryController = require('../controllers/categoryController');
-// const orderController = require('../controllers/orderController');
-// const orderItemController = require('../controllers/orderItemController');
+const imageController = require('../controllers/imageController');
+const optionsProductController = require('../controllers/optionsProductController');
+const productCategoryController = require('../controllers/productCategoryController');
 const productController = require('../controllers/productController');
-// const authController = require('../controllers/authController');
 
 /**
  * @swagger
@@ -196,27 +195,6 @@ router.put('/users/:id', userController.updateUser);
  */
 router.delete('/users/:id', userController.deleteUser);
 
-// // Category routes
-// router.get('/categories', categoryController.getAllCategories);
-// router.get('/categories/:id', categoryController.getCategoryById);
-// router.post('/categories', categoryController.createCategory);
-// router.put('/categories/:id', categoryController.updateCategory);
-// router.delete('/categories/:id', categoryController.deleteCategory);
-
-// // Order routes
-// router.get('/orders', orderController.getAllOrders);
-// router.get('/orders/:id', orderController.getOrderById);
-// router.post('/orders', orderController.createOrder);
-// router.put('/orders/:id', orderController.updateOrder);
-// router.delete('/orders/:id', orderController.deleteOrder);
-
-// // OrderItem routes
-// router.get('/orderItems', orderItemController.getAllOrderItems);
-// router.get('/orderItems/:id', orderItemController.getOrderItemById);
-// router.post('/orderItems', orderItemController.createOrderItem);
-// router.put('/orderItems/:id', orderItemController.updateOrderItem);
-// router.delete('/orderItems/:id', orderItemController.deleteOrderItem);
-
 // Product routes
 /**
  * @swagger
@@ -235,7 +213,6 @@ router.delete('/users/:id', userController.deleteUser);
  *                 $ref: '#/components/schemas/Product'
  */
 router.get('/products', productController.getAllProducts);
-
 /**
  * @swagger
  * /products/{id}:
@@ -337,5 +314,366 @@ router.put('/products/:id', productController.updateProduct);
  *         description: Erro no servidor
  */
 router.delete('/products/:id', productController.deleteProduct);
+
+// Image routes
+/**
+ * @swagger
+ * /images:
+ *   get:
+ *     summary: Recuperar uma lista de imagens
+ *     tags: [Images]
+ *     responses:
+ *       200:
+ *         description: Lista de imagens
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Image'
+ */
+router.get('/images', imageController.getAllImages);
+/**
+ * @swagger
+ * /images/{id}:
+ *   get:
+ *     summary: Recuperar uma única imagem
+ *     tags: [Images]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID da imagem
+ *     responses:
+ *       200:
+ *         description: Uma única imagem
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Image'
+ *       404:
+ *         description: Imagem não encontrada
+ */
+router.get('/images/:id', imageController.getImageById);
+/**
+ * @swagger
+ * /images:
+ *   post:
+ *     summary: Criar uma nova imagem
+ *     tags: [Images]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Image'
+ *     responses:
+ *       201:
+ *         description: Imagem criada com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Image'
+ *       500:
+ *         description: Erro interno do servidor
+ */
+router.post('/images', imageController.createImage);
+/**
+ * @swagger
+ * /images/{id}:
+ *   put:
+ *     summary: Atualizar uma imagem
+ *     tags: [Images]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID da imagem
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Image'
+ *     responses:
+ *       200:
+ *         description: Imagem atualizada
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Image'
+ *       404:
+ *         description: Imagem não encontrada
+ *       500:
+ *         description: Erro no servidor
+ */
+router.put('/images/:id', imageController.updateImage);
+/**
+ * @swagger
+ * /images/{id}:
+ *   delete:
+ *     summary: Deletar uma imagem
+ *     tags: [Images]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID da imagem
+ *     responses:
+ *       204:
+ *         description: Sem corpo da resposta
+ *       404:
+ *         description: Imagem não encontrada
+ *       500:
+ *         description: Erro no servidor
+ */
+router.delete('/images/:id', imageController.deleteImage);
+
+// OptionsProduct routes
+/**
+ * @swagger
+ * /options:
+ *   get:
+ *     summary: Recuperar uma lista de opções do produto
+ *     tags: [OptionsProducts]
+ *     responses:
+ *       200:
+ *         description: Lista de opções do produto
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/OptionsProduct'
+ */
+router.get('/options', optionsProductController.getAllOptionsProduct);
+/**
+ * @swagger
+ * /options/{id}:
+ *   get:
+ *     summary: Recuperar uma única opção de produto
+ *     tags: [OptionsProducts]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID da opção de produto
+ *     responses:
+ *       200:
+ *         description: Uma única opção
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/OptionsProduct'
+ *       404:
+ *         description: Opção não encontrada
+ */
+router.get('/options/:id', optionsProductController.getOptionById);
+/**
+ * @swagger
+ * /options:
+ *   post:
+ *     summary: Criar uma nova opção
+ *     tags: [OptionsProducts]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/OptionsProduct'
+ *     responses:
+ *       201:
+ *         description: Opção criada com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/OptionsProduct'
+ *       500:
+ *         description: Erro interno do servidor
+ */
+router.post('/options', optionsProductController.createOptionsProduct);
+/**
+ * @swagger
+ * /options/{id}:
+ *   put:
+ *     summary: Atualizar uma opção do produto
+ *     tags: [OptionsProducts]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID da opção
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/OptionsProduct'
+ *     responses:
+ *       200:
+ *         description: Opção atualizada
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/OptionsProduct'
+ *       404:
+ *         description: Opção não encontrada
+ *       500:
+ *         description: Erro no servidor
+ */
+router.put('/options/:id', optionsProductController.updateOption);
+/**
+ * @swagger
+ * /options/{id}:
+ *   delete:
+ *     summary: Deletar uma opção do produto
+ *     tags: [OptionsProducts]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID da opção
+ *     responses:
+ *       204:
+ *         description: Sem corpo da resposta
+ *       404:
+ *         description: Opção não encontrada
+ *       500:
+ *         description: Erro no servidor
+ */
+router.delete('/options/:id', optionsProductController.deleteOption);
+
+// ProductCategory routes
+/**
+ * @swagger
+ * /optionscategory:
+ *   get:
+ *     summary: Recuperar uma lista de opções de categoria do produtos
+ *     tags: [OptionsCategory]
+ *     responses:
+ *       200:
+ *         description: Lista de opções de categoria do produto
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/OptionsCategory'
+ */
+router.get('/optionscategory', productCategoryController.getAllProductCategory);
+/**
+ * @swagger
+ * /optionscategory/{id}:
+ *   get:
+ *     summary: Recuperar uma única opção de categoria do produto
+ *     tags: [OptionsCategory]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID da opção de categoria do produto
+ *     responses:
+ *       200:
+ *         description: Uma única opção de categoria
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/OptionsCategory'
+ *       404:
+ *         description: Opção não encontrada
+ */
+router.get('/optionscategory/:id', productCategoryController.getProductCategoryById);
+/**
+ * @swagger
+ * /optionsctegory:
+ *   post:
+ *     summary: Criar uma nova opção de categoria
+ *     tags: [OptionsCategory]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/OptionsCategory'
+ *     responses:
+ *       201:
+ *         description: Opção de categoria criada com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/OptionsCategory'
+ *       500:
+ *         description: Erro interno do servidor
+ */
+router.post('/optionscategory', productCategoryController.createProductCategory);
+/**
+ * @swagger
+ * /optionscategory/{id}:
+ *   put:
+ *     summary: Atualizar uma opção de categoria do produto
+ *     tags: [OptionsCategory]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID da opção de categoria
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/OptionsCategory'
+ *     responses:
+ *       200:
+ *         description: Opção de categoria atualizada
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/OptionsCategory'
+ *       404:
+ *         description: Opção de categoria não encontrada
+ *       500:
+ *         description: Erro no servidor
+ */
+router.put('/optionscategory/:id', productCategoryController.updateProductCategory);
+/**
+ * @swagger
+ * /optionscategory/{id}:
+ *   delete:
+ *     summary: Deletar uma opção de categoria do produto
+ *     tags: [OptionsCategory]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID da opção de categoria
+ *     responses:
+ *       204:
+ *         description: Sem corpo da resposta
+ *       404:
+ *         description: Opção de categoria não encontrada
+ *       500:
+ *         description: Erro no servidor
+ */
+router.delete('/optionscategory/:id', productCategoryController.deleteProductCategory);
+
 
 module.exports = router;
