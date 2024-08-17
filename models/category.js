@@ -1,3 +1,4 @@
+
 'use strict';
 const {
   Model
@@ -14,9 +15,18 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Category.init({
-    name: DataTypes.STRING,
-    slug: DataTypes.STRING,
-    use_in_menu: DataTypes.BOOLEAN
+    name: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+  },
+    slug: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+  },
+    use_in_menu: {
+      type: DataTypes.BOOLEAN,
+      allowNull: false,
+  },
   }, {
     sequelize,
     modelName: 'Category',

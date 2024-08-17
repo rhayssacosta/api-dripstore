@@ -1,3 +1,4 @@
+
 'use strict';
 const {
   Model
@@ -14,8 +15,14 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Image.init({
-    name: DataTypes.STRING,
-    url: DataTypes.STRING
+    name: {
+      type: DataTypes.STRING(100),
+      allowNull: false,
+  },
+  url: {
+      type: DataTypes.STRING(100),
+      allowNull: false,
+  },
   }, {
     sequelize,
     modelName: 'Image',

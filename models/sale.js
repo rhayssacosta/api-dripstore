@@ -1,3 +1,4 @@
+
 'use strict';
 const {
   Model
@@ -14,10 +15,23 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Sale.init({
-    total: DataTypes.DECIMAL,
-    payment: DataTypes.STRING,
-    sale_date: DataTypes.DATE,
-    user_id: DataTypes.INTEGER
+    total: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
+  },
+    payment:{
+      type: DataTypes.STRING(20),
+      allowNull: false,
+  },
+    sale_date: {
+      type: DataTypes.DATE,
+      allowNull: false,
+  },
+    user_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      foreignKey: true,
+  },
   }, {
     sequelize,
     modelName: 'Sale',

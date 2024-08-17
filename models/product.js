@@ -1,3 +1,4 @@
+
 'use strict';
 const {
   Model
@@ -14,14 +15,38 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Product.init({
-    enabled: DataTypes.BOOLEAN,
-    name: DataTypes.STRING,
-    slug: DataTypes.STRING,
-    use_in_menu: DataTypes.BOOLEAN,
-    stock: DataTypes.INTEGER,
-    description: DataTypes.TEXT,
-    price: DataTypes.DECIMAL,
-    price_with_discount: DataTypes.DECIMAL
+    enabled: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+  },
+  name: {
+      type: DataTypes.STRING(100),
+      allowNull: false,
+  },
+  slug: {
+      type: DataTypes.STRING(100),
+      allowNull: false,
+  },
+  use_in_menu: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+  },
+  stock: {
+      type: DataTypes.INTEGER,
+      allowNull: true,
+  },
+  description: {
+      type: DataTypes.STRING(200),
+      allowNull: true,
+  },
+  price: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
+  },
+  price_with_discount: {
+      type: DataTypes.DECIMAL(10, 2),
+      allowNull: false,
+  },
   }, {
     sequelize,
     modelName: 'Product',

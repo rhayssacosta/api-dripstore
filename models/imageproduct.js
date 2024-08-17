@@ -14,9 +14,20 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   ImageProduct.init({
-    product_id: DataTypes.INTEGER,
-    enabled: DataTypes.BOOLEAN,
-    image_id: DataTypes.INTEGER
+    product_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      foreignKey: true,
+  },
+     enabled: {
+      type: DataTypes.BOOLEAN,
+      allowNull: true,
+  },
+     image_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      foreignKey: true,
+  },
   }, {
     sequelize,
     modelName: 'ImageProduct',

@@ -1,3 +1,4 @@
+
 'use strict';
 const {
   Model
@@ -14,15 +15,45 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   User.init({
-    username: DataTypes.STRING,
-    cpf: DataTypes.STRING,
-    email: DataTypes.STRING,
-    phone: DataTypes.STRING,
-    password: DataTypes.STRING,
-    address: DataTypes.STRING,
-    district: DataTypes.STRING,
-    city: DataTypes.STRING,
-    complement: DataTypes.STRING
+    username: {
+      type: DataTypes.STRING(50),
+      allowNull: false,
+      unique: true,
+    },
+    cpf: {
+      type: DataTypes.STRING(11),
+      allowNull: false,
+      unique: true,
+    },
+    email: {
+      type: DataTypes.STRING(100),
+      allowNull: false,
+      unique: true,
+    },
+    phone: {
+      type: DataTypes.STRING(15),
+      allowNull: true,
+    },
+    password: {
+      type: DataTypes.STRING(100),
+      allowNull: false,
+    },
+    address: {
+      type: DataTypes.STRING(255),
+      allowNull: true,
+    },
+    district: {
+      type: DataTypes.STRING(100),
+      allowNull: true,
+    },
+    city: {
+      type: DataTypes.STRING(100),
+      allowNull: true,
+    },
+    complement: {
+      type: DataTypes.STRING(100),
+      allowNull: true,
+    }
   }, {
     sequelize,
     modelName: 'User',

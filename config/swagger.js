@@ -26,7 +26,7 @@ const options = {
                         },
                         cpf: {
                             type: 'string',
-                            description: 'CPF usuário'
+                            description: 'CPF do usuário',
                         },
                         email: {
                             type: 'string',
@@ -57,7 +57,175 @@ const options = {
                             description: 'Complemento do usuário',
                         },
                     },
-                    required: ['username', 'cpf', 'email', 'phone', 'password', 'address', 'district', 'city', 'complement'],
+                    required: ['username', 'cpf', 'email', 'phone', 'password', 'address', 'district', 'city',],
+                },
+                Category: {
+                    type: 'object',
+                    properties: {
+                        name: {
+                            type: 'string',
+                            description: 'Nome da categoria',
+                        },
+                        slug: {
+                            type: 'string',
+                            description: 'Slug da categoria',
+                        },
+                        use_in_menu: {
+                            type: 'boolean',
+                            description: '',
+                        },
+                    },
+                    required: ['name', 'slug', 'use_in_menu',],
+                },
+                Product: {
+                    type: 'object',
+                    properties: {
+                        enabled: {
+                            type: 'boolean',
+                            description: 'Produto habilitado',
+                        },
+                        name: {
+                            type: 'string',
+                            description: 'Nome do produto',
+                        },
+                        slug: {
+                            type: 'string',
+                            description: '',
+                        },
+                        use_in_menu: {
+                            type: 'boolean',
+                            description: '',
+                        },
+                        stock: {
+                            type: 'integer',
+                            description: 'Produto em estoque',
+                        },
+                        description: {
+                            type: 'string',
+                            description: 'Descrição do produto',
+                        },
+                        price: {
+                            type: 'decimal',
+                            description: 'Preço do produto',
+                        },
+                        price_with_discount: {
+                            type: 'decimal',
+                            description: 'Desconto do produto',
+                        },
+                    },
+                    required: ['enabled', 'name', 'slug', 'use_in_menu', 'stock', 'description', 'price', 'price_with_discount',],
+                },
+                Image: {
+                    type: 'object',
+                    properties: {
+                        name: {
+                            type: 'string',
+                            description: 'Nome da imagem',
+                        },
+                        url: {
+                            type: 'string',
+                            description: 'Caminho/URL da imagem',
+                        },
+                    },
+                    required: ['name', 'url',],
+                },
+                ImageProduct: {
+                    type: 'object',
+                    properties: {
+                        product_id: {
+                            type: 'integer',
+                            description: 'ID de produtos',
+                        },
+                        enabled: {
+                            type: 'boolean',
+                            description: 'Imagem de produto habilitado/desabilitado',
+                        },
+                        image_id: {
+                            type: 'integer',
+                            description: 'ID de imagens',
+                        },
+                    },
+                    required: ['product_id', 'enabled', 'image_id',],
+                },
+                ProductyCategory: {
+                    type: 'object',
+                    properties: {
+                        product_id: {
+                            type: 'integer',
+                            description: '',
+                        },
+                        category_id: {
+                            type: 'integer',
+                            description: ''
+                        },
+                    },
+                    required: ['product_id', 'category_id',],
+                },
+                OptionsProduct: {
+                    type: 'object',
+                    properties: {
+                        product_id: {
+                            type: 'integer',
+                            description: '',
+                        },
+                        title: {
+                            type: 'string',
+                            description: 'Título de opções de produto',
+                        },
+                        shape: {
+                            type: 'enum',
+                            description: 'Forma da imagem do produto',
+                        },
+                        radius: {
+                            type: 'integer',
+                            description: 'Borda da imagem do produto'
+                        },
+                        type: {
+                            type: 'enum',
+                            description: '',
+                        },
+                        values: {
+                            type: 'string',
+                            description: '',
+                        }
+                    },
+                    required: ['product_id', 'title', 'shape', 'radius', 'type', 'values', ],
+                },
+                Sale: {
+                    type: 'object',
+                    properties: {
+                        total: {
+                            type: 'decimal',
+                            description: 'Total da compra',
+                        },
+                        payment: {
+                            type: 'string',
+                            description: 'Pagamento da compra',
+                        },
+                        sale_date: {
+                            type: 'date',
+                            description: 'Data da compra',
+                        },
+                        user_id: {
+                            type: 'integer',
+                            description: 'ID que conecta a tabela usuário'
+                        }
+                    },
+                    required: ['total', 'payment', 'sale_date', 'user_id',],
+                },
+                Order: {
+                    type: 'object',
+                    properties: {
+                        sale_id: {
+                            type: 'integer',
+                            description: 'ID que conecta à tabela compra',
+                        },
+                        products_id: {
+                            type: 'integer',
+                            description: 'ID que conecta à tabela produtos',
+                        },
+                    },
+                    required: ['sale_id', 'products_id',],
                 },
             },
         },

@@ -2,11 +2,10 @@
 const express = require('express');
 const router = express.Router();
 const userController = require('../controllers/userController');
-// const addressController = require('../controllers/addressController');
 // const categoryController = require('../controllers/categoryController');
 // const orderController = require('../controllers/orderController');
 // const orderItemController = require('../controllers/orderItemController');
-// const productController = require('../controllers/productController');
+const productController = require('../controllers/productController');
 // const authController = require('../controllers/authController');
 
 /**
@@ -140,26 +139,8 @@ router.get('/users/:id', userController.getUserById);
  *               $ref: '#/components/schemas/User'
  *       400:
  *         description: Requisição inválida
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- *                   description: Mensagem de erro
- *                   example: Dados inválidos
  *       500:
  *         description: Erro interno do servidor
- *         content:
- *           application/json:
- *             schema:
- *               type: object
- *               properties:
- *                 error:
- *                   type: string
- *                   description: Mensagem de erro
- *                   example: Erro ao criar usuário
  */
 router.post('/users', userController.createUser);
 /**
@@ -188,8 +169,6 @@ router.post('/users', userController.createUser);
  *           application/json:
  *             schema:
  *               $ref: '#/components/schemas/User'
- *       404:
- *         description: Usuário não encontrado
  *       500:
  *         description: Erro no servidor
  */
@@ -217,13 +196,6 @@ router.put('/users/:id', userController.updateUser);
  */
 router.delete('/users/:id', userController.deleteUser);
 
-// // Address routes
-// router.get('/addresses', addressController.getAllAddresses);
-// router.get('/addresses/:id', addressController.getAddressById);
-// router.post('/addresses', addressController.createAddress);
-// router.put('/addresses/:id', addressController.updateAddress);
-// router.delete('/addresses/:id', addressController.deleteAddress);
-
 // // Category routes
 // router.get('/categories', categoryController.getAllCategories);
 // router.get('/categories/:id', categoryController.getCategoryById);
@@ -245,11 +217,125 @@ router.delete('/users/:id', userController.deleteUser);
 // router.put('/orderItems/:id', orderItemController.updateOrderItem);
 // router.delete('/orderItems/:id', orderItemController.deleteOrderItem);
 
-// // Product routes
-// router.get('/products', productController.getAllProducts);
-// router.get('/products/:id', productController.getProductById);
-// router.post('/products', productController.createProduct);
-// router.put('/products/:id', productController.updateProduct);
-// router.delete('/products/:id', productController.deleteProduct);
+// Product routes
+/**
+ * @swagger
+ * /products:
+ *   get:
+ *     summary: Recuperar uma lista de produtos
+ *     tags: [Products]
+ *     responses:
+ *       200:
+ *         description: Lista de produtos
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Product'
+ */
+router.get('/products', productController.getAllProducts);
+
+/**
+ * @swagger
+ * /products/{id}:
+ *   get:
+ *     summary: Recuperar um único produto
+ *     tags: [Products]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID do produto
+ *     responses:
+ *       200:
+ *         description: Um único produto
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Product'
+ *       404:
+ *         description: Usuário não encontrado
+ */
+router.get('/products/:id', productController.getProductById);
+/**
+ * @swagger
+ * /products:
+ *   post:
+ *     summary: Criar um novo produto
+ *     tags: [Products]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Product'
+ *     responses:
+ *       201:
+ *         description: Produto criado com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Product'
+ *       500:
+ *         description: Erro interno do servidor
+ */
+router.post('/products', productController.createProduct);
+/**
+ * @swagger
+ * /products/{id}:
+ *   put:
+ *     summary: Atualizar um produto
+ *     tags: [Products]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID do produto
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Product'
+ *     responses:
+ *       200:
+ *         description: Produto atualizado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Product'
+ *       404:
+ *         description: Usuário não encontrado
+ *       500:
+ *         description: Erro no servidor
+ */
+router.put('/products/:id', productController.updateProduct);
+/**
+ * @swagger
+ * /products/{id}:
+ *   delete:
+ *     summary: Deletar um usuário
+ *     tags: [Products]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID do produto
+ *     responses:
+ *       204:
+ *         description: Sem corpo da resposta
+ *       404:
+ *         description: Produto não encontrado
+ *       500:
+ *         description: Erro no servidor
+ */
+router.delete('/products/:id', productController.deleteProduct);
 
 module.exports = router;

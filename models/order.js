@@ -1,3 +1,4 @@
+
 'use strict';
 const {
   Model
@@ -14,8 +15,16 @@ module.exports = (sequelize, DataTypes) => {
     }
   }
   Order.init({
-    sale_id: DataTypes.INTEGER,
-    products_id: DataTypes.INTEGER
+    sale_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      foreignKey: true,
+  },
+  products_id: {
+      type: DataTypes.INTEGER,
+      allowNull: false,
+      foreignKey: true,
+  },
   }, {
     sequelize,
     modelName: 'Order',
