@@ -41,7 +41,7 @@ module.exports = {
         type: Sequelize.STRING,
         allowNull: false,
       },
-      complement: {
+      complemente: {
         type: Sequelize.STRING,
         allowNull: true,
       },

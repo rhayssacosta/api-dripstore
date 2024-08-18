@@ -8,7 +8,7 @@ const productCategoryController = require('../controllers/productCategoryControl
 const categoryController = require('../controllers/categoryController');
 const orderController = require('../controllers/orderController');
 const productController = require('../controllers/productController');
-const imagesProductController = require('../controllers/imageProductController')
+const imageProductController = require('../controllers/imageProductController')
 const saleController = require('../controllers/saleController');
 // const authController = require('../controllers/authController');
 
@@ -575,7 +575,7 @@ router.delete('/products/:id', productController.deleteProduct);
  *               items:
  *                 $ref: '#/components/schemas/ImageProduct'
  */
-router.get('/imageProduct', imageProductController.getAllImageProduct);
+router.get('/imageProduct', imageProductController.getAllImageProducts);
 /**
  * @swagger
  * /imageProduct/{id}:
@@ -1056,7 +1056,7 @@ router.delete('/optionscategory/:id', productCategoryController.deleteProductCat
  *               items:
  *                 $ref: '#/components/schemas/ImageProduct'
  */
-router.get('/imagesProduct', imagesProductController.getAllImageProducts);
+router.get('/imagesProduct', imageProductController.getAllImageProducts);
 /**
  * @swagger
  * /imagesProduct/{id}:
@@ -1080,7 +1080,7 @@ router.get('/imagesProduct', imagesProductController.getAllImageProducts);
  *       404:
  *         description: Imagem não encontrada
  */
-router.get('/imagesProduct/:id', imagesProductController.getImageProductById);
+router.get('/imagesProduct/:id', imageProductController.getImageProductById);
 /**
  * @swagger
  * /imagesProduct:
@@ -1103,7 +1103,7 @@ router.get('/imagesProduct/:id', imagesProductController.getImageProductById);
  *       500:
  *         description: Erro interno do servidor
  */
-router.post('/imagesProduct', imagesProductController.createImageProduct);
+router.post('/imagesProduct', imageProductController.createImageProduct);
 /**
  * @swagger
  * /imagesProduct/{id}:
@@ -1135,7 +1135,7 @@ router.post('/imagesProduct', imagesProductController.createImageProduct);
  *       500:
  *         description: Erro no servidor
  */
-router.put('/imagesProduct/:id', imagesProductController.updateImageProduct);
+router.put('/imagesProduct/:id', imageProductController.updateImageProduct);
 /**
  * @swagger
  * /imagesProduct/{id}:
@@ -1157,7 +1157,7 @@ router.put('/imagesProduct/:id', imagesProductController.updateImageProduct);
  *       500:
  *         description: Erro no servidor
  */
-router.delete('/imagesProduct/:id', imagesProductController.deleteImageProduct);
+router.delete('/imagesProduct/:id', imageProductController.deleteImageProduct);
 
 // // Sale routes
 /**

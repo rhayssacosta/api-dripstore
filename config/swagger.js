@@ -52,7 +52,7 @@ const options = {
                             type: 'string',
                             description: 'Cidade do usuário',
                         },
-                        complement: {
+                        complemente: {
                             type: 'string',
                             description: 'Complemento do usuário',
                         },
