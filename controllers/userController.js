@@ -2,75 +2,74 @@
 const { User } = require('../models');
 
 // Get all users
-const getAllUsers = async (req, res) => {
+const getAllUsers = async (request, response) => {
     try {
         const users = await User.findAll();
-        console.log('teste', users)
-        res.status(200).json(users);
+        response.status(200).json(users);
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        response.status(500).json({ error: error.message });
     }
 };
 
 // Get user by ID
-const getUserById = async (req, res) => {
+const getUserById = async (request, response) => {
     try {
-        const { id } = req.params;
+        const { id } = request.params;
         const user = await User.findByPk(id);
         if (user) {
-            res.status(200).json(user);
+            response.status(200).json(user);
         } else {
-            res.status(404).json({ message: 'Usuário não encontrado' });
+            response.status(404).json({ message: 'Usuário não encontrado' });
         }
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        response.status(500).json({ error: error.message });
     }
 };
 
-const createUser = async (req, res) => {
+const createUser = async (request, response) => {
     try {
         // Cria um novo usuário usando os dados enviados no corpo da requisição
-        const newUser = await User.create(req.body);
+        const newUser = await User.create(request.body);
         // Retorna o usuário criado com status 201
-        res.status(201).json(newUser);
+        response.status(201).json(newUser);
     } catch (error) {
         // Retorna um erro com status 500 em caso de falha
-        res.status(500).json({ error: error.message });
+        response.status(500).json({ error: error.message });
     }
 };
 
 // Update a user by ID
-const updateUser = async (req, res) => {
+const updateUser = async (request, response) => {
     try {
-        const { id } = req.params;
-        const [updated] = await User.update(req.body, {
+        const { id } = request.params;
+        const [updated] = await User.update(request.body, {
             where: { id: id }
         });
         if (updated) {
             const updatedUser = await User.findByPk(id);
             res.status(200).json(updatedUser);
         } else {
-            res.status(404).json({ message: 'Usuário não encontrado' });
+            response.status(404).json({ message: 'Usuário não encontrado' });
         }
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        response.status(500).json({ error: error.message });
     }
 };
 
 // Delete a user by ID
-const deleteUser = async (req, res) => {
+const deleteUser = async (request, response) => {
     try {
-        const { id } = req.params;
+        const { id } = request.params;
         const deleted = await User.destroy({
             where: { id: id }
         });
         if (deleted) {
-            res.status(204).send();
+            response.status(204).send();
         } else {
-            res.status(404).json({ message: 'Usuário não encontrado' });
+            response.status(404).json({ message: 'Usuário não encontrado' });
         }
     } catch (error) {
-        res.status(500).json({ error: error.message });
+        response.status(500).json({ error: error.message });
     }
 };
 

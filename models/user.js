@@ -32,7 +32,7 @@ module.exports = (sequelize, DataTypes) => {
     },
     phone: {
       type: DataTypes.STRING(15),
-      allowNull: true,
+      allowNull: false,
     },
     password: {
       type: DataTypes.STRING(100),
@@ -40,19 +40,19 @@ module.exports = (sequelize, DataTypes) => {
     },
     address: {
       type: DataTypes.STRING(255),
-      allowNull: true,
+      allowNull: false,
     },
     district: {
       type: DataTypes.STRING(100),
-      allowNull: true,
+      allowNull: false,
     },
     city: {
       type: DataTypes.STRING(100),
-      allowNull: true,
+      allowNull: false,
     },
     complemente: {
       type: DataTypes.STRING(100),
-      allowNull: true,
+      allowNull: false,
     }
   }, {
     sequelize,

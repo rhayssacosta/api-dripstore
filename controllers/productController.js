@@ -1,68 +1,68 @@
 
 const { Product } = require('../models');
 
-const getAllProducts = async (req, res) => {
+const getAllProducts = async (request, response) => {
   try {
     const products = await Product.findAll();
-    res.status(200).json(products);
+    response.status(200).json(products);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    response.status(500).json({ error: error.message });
   }
 };
 
-const getProductById = async (req, res) => {
+const getProductById = async (request, response) => {
   try {
-    const { id } = req.params;
+    const { id } = request.params;
     const product = await Product.findByPk(id);
     if (product) {
-      res.status(200).json(product);
+      response.status(200).json(product);
     } else {
-      res.status(404).json({ message: 'Produto não encontrado' });
+      response.status(404).json({ message: 'Produto não encontrado' });
     }
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    response.status(500).json({ error: error.message });
   }
 };
 
-const createProduct = async (req, res) => {
+const createProduct = async (request, response) => {
   try {
-    const product = await Product.create(req.body);
-    res.status(201).json(product);
+    const product = await Product.create(request.body);
+    response.status(201).json(product);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    response.status(500).json({ error: error.message });
   }
 };
 
-const updateProduct = async (req, res) => {
+const updateProduct = async (request, response) => {
   try {
-    const { id } = req.params;
+    const { id } = request.params;
     const [updated] = await Product.update(req.body, {
       where: { id: id }
     });
     if (updated) {
       const updatedProduct = await Product.findByPk(id);
-      res.status(200).json(updatedProduct);
+      response.status(200).json(updatedProduct);
     } else {
-      res.status(404).json({ message: 'Produto não encontrado' });
+      response.status(404).json({ message: 'Produto não encontrado' });
     }
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    response.status(500).json({ error: error.message });
   }
 };
 
-const deleteProduct = async (req, res) => {
+const deleteProduct = async (request, response) => {
   try {
-    const { id } = req.params;
+    const { id } = request.params;
     const deleted = await Product.destroy({
       where: { id: id }
     });
     if (deleted) {
-      res.status(204).send();
+      response.status(204).send();
     } else {
-      res.status(404).json({ message: 'Produto não encontrado' });
+      response.status(404).json({ message: 'Produto não encontrado' });
     }
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    response.status(500).json({ error: error.message });
   }
 };
 

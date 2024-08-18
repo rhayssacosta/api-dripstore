@@ -10,31 +10,40 @@ module.exports = {
         type: Sequelize.INTEGER
       },
       username: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       cpf: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       email: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       phone: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       password: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       address: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       district: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       city: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       complemente: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
+        allowNull: false,
       },
       createdAt: {
         allowNull: false,
