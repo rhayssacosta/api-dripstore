@@ -558,6 +558,126 @@ router.put('/products/:id', productController.updateProduct);
  */
 router.delete('/products/:id', productController.deleteProduct);
 
+// ProductImages routes
+/**
+ * @swagger
+ * /imageProduct:
+ *   get:
+ *     summary: Recuperar uma lista de imagens
+ *     tags: [ImageProduct]
+ *     responses:
+ *       200:
+ *         description: Lista de imagens de produtos
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/ImageProduct'
+ */
+router.get('/imageProduct', imageProductController.getAllImageProduct);
+/**
+ * @swagger
+ * /imageProduct/{id}:
+ *   get:
+ *     summary: Recuperar uma única imagem
+ *     tags: [ImageProduct]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID da imagem do produto
+ *     responses:
+ *       200:
+ *         description: Uma única imagem
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ImageProduct'
+ *       404:
+ *         description: Imagem não encontrada
+ */
+router.get('/imageProduct/:id', imageProductController.getImageProductById);
+/**
+ * @swagger
+ * /imageProduct:
+ *   post:
+ *     summary: Criar uma nova imagem de um produto
+ *     tags: [ImageProduct]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/ImageProduct'
+ *     responses:
+ *       201:
+ *         description: Imagem inserida com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ImageProduct'
+ *       500:
+ *         description: Erro interno do servidor
+ */
+router.post('/imageProduct', imageProductController.createImageProduct);
+/**
+ * @swagger
+ * /imageProduct/{id}:
+ *   put:
+ *     summary: Atualizar uma imagem
+ *     tags: [ImageProduct]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID da imagem
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/ImageProduct'
+ *     responses:
+ *       200:
+ *         description: Imagem atualizada
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/ImageProduct'
+ *       404:
+ *         description: Imagem não encontrada
+ *       500:
+ *         description: Erro no servidor
+ */
+router.put('/imageProduct/:id', imageProductController.updateImageProduct);
+/**
+ * @swagger
+ * /imageProduct/{id}:
+ *   delete:
+ *     summary: Deletar uma imagem
+ *     tags: [ImageProduct]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID da imagem
+ *     responses:
+ *       204:
+ *         description: Sem corpo da resposta
+ *       404:
+ *         description: Produto não encontrado
+ *       500:
+ *         description: Erro no servidor
+ */
+router.delete('/imageProduct/:id', imageProductController.deleteImageProduct)
+
 // Image routes
 /**
  * @swagger
