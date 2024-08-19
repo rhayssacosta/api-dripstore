@@ -3,47 +3,63 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const express = require('express');
 const app = express();
-const users = require('../models');
+const { User } = require('../models');
 require('dotenv').config();
 
-function authenticateToken() {
-    app.post('/register', async (request, response) => {
-        try {
-            const hashedPassword = await bcrypt.hash(request.body.password, 10);
-            const user = {
-                username: request.body.username,
-                cpf: request.body.cpf,
-                email: request.body.email,
-                phone: request.body.phone,
-                password: hashedPassword,
-                address: request.body.address,
-                district: request.body.district,
-                city: request.body.city,
-                complemente: request.body.complemente
-            };
-            users.push(user);
-            response.status(201).send('Usuário registrado com sucesso!');
-        } catch {
-            response.status(500).send('Erro ao registrar usuário.');
-        }
-    });
+const register = async (request, response) => {
+    try {
+        /*
+           antes de processar, validar se o emais ja existe
+        */
 
-    app.post('/login', async (request, response) => {
-        const user = users.find(user => user.email === request.body.email);
-        if (user == null) {
-            return response.status(400).send('Usuário não encontrado');
-        }
-        try {
-            if (await bcrypt.compare(request.body.password, user.password)) {
-                const accessToken = jwt.sign({ email: user.email }, process.env.KEY_SECRET, { expiresponseIn: '1h' });
-                response.json({ accessToken });
-            } else {
-                response.send('Senha incorreta.');
-            }
-        } catch {
-            response.status(500).send('Erro ao fazer login.');
-        }
-    });
+        const hashedPassword = await bcrypt.hash(request.body.password, 10);
+
+        const user = {
+            username: request.body.username,
+            cpf: request.body.cpf,
+            email: request.body.email,
+            phone: request.body.phone,
+            password: hashedPassword,
+            address: request.body.address,
+            district: request.body.district,
+            city: request.body.city,
+            complemente: request.body.complemente
+        };
+
+        const newUser = await User.create(user);
+        response.status(201).send({ message: "Usuário registrado com sucesso" });
+    } catch {
+        response.status(500).send('Erro ao registrar usuário.');
+    }
 };
 
-module.exports = authenticateToken;
+const authenticate = async (request, response) => {
+    try {
+        const user = await User.findOne({
+            where: {
+                email: request.body.email
+            }
+        });
+
+        if (user == null) return response.status(404).send('Usuário não encontrado');
+
+        const passwordIsEqual = await bcrypt.compare(request.body.password, user.password);
+        if (!passwordIsEqual) return response.send('Senha incorreta.');
+
+        let payload = { email: user.email, createdAt: user.createdAt }
+        let secretKey = process.env.KEY_SECRET
+        let options = { expiresIn: '1h' }
+
+        const token = generateTokenJWT(payload, secretKey, options)
+        response.json({ token });
+    } catch {
+        response.status(500).send('Erro ao fazer login.');
+    }
+};
+
+const generateTokenJWT = (payload, secretKey, options) => jwt.sign(payload, secretKey, options);
+
+module.exports = {
+    register,
+    authenticate
+}

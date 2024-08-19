@@ -10,82 +10,82 @@ const orderController = require('../controllers/orderController');
 const productController = require('../controllers/productController');
 const imageProductController = require('../controllers/imageProductController')
 const saleController = require('../controllers/saleController');
-// const authController = require('../controllers/authController');
+const authenticateController = require('../controllers/authenticateController');
 
 /**
  * @swagger
  * tags:
- *   name: e-commerce API
- *   description: Documentação de referência da API de demonstração para o trabalho final da geração Tech
+ *   name: API DripStore
+ *   description: Documentação de API para ecommerce.
  */
 
-// // Auth routes
-// /**
-//  * @swagger
-//  * /register:
-//  *   post:
-//  *     summary: Criar um novo usuário
-//  *     tags: [Autenticação]
-//  *     requestBody:
-//  *       required: true
-//  *       content:
-//  *         application/json:
-//  *           schema:
-//  *             $ref: '#/components/schemas/User'
-//  *     responses:
-//  *       201:
-//  *         description: Usuário criado
-//  *         content:
-//  *           application/json:
-//  *             schema:
-//  *               $ref: '#/components/schemas/User'
-//  *       500:
-//  *         description: Erro no servidor
-//  */
-// router.post('/register', authController.register);
-// /**
-//  * @swagger
-//  * /login:
-//  *   post:
-//  *     summary: Realiza o login do usuário
-//  *     tags: [Autenticação]
-//  *     requestBody:
-//  *       required: true
-//  *       content:
-//  *         application/json:
-//  *           schema:
-//  *             type: object
-//  *             properties:
-//  *               email:
-//  *                 type: string
-//  *                 description: Email do usuário
-//  *                 example: "usuario@example.com"
-//  *               password:
-//  *                 type: string
-//  *                 description: Senha do usuário
-//  *                 example: "senha123"
-//  *     responses:
-//  *       200:
-//  *         description: Login bem-sucedido
-//  *         content:
-//  *           application/json:
-//  *             schema:
-//  *               type: object
-//  *               properties:
-//  *                 token:
-//  *                   type: string
-//  *                   description: Token JWT para autenticação
-//  *       401:
-//  *         description: Credenciais inválidas
-//  */
-// router.post('/login', authController.login);
+// Auth routes
+/**
+ * @swagger
+ * /register:
+ *   post:
+ *     summary: Criar um novo usuário
+ *     tags: [Autenticação]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/User'
+ *     responses:
+ *       201:
+ *         description: Usuário criado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/User'
+ *       500:
+ *         description: Erro no servidor
+ */
+router.post('/register', authenticateController.register);
+/**
+ * @swagger
+ * /login:
+ *   post:
+ *     summary: Realiza o login do usuário
+ *     tags: [Autenticação]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             properties:
+ *               email:
+ *                 type: string
+ *                 description: Email do usuário
+ *                 example: "usuario@example.com"
+ *               password:
+ *                 type: string
+ *                 description: Senha do usuário
+ *                 example: "senha123"
+ *     responses:
+ *       200:
+ *         description: Login bem-sucedido
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 token:
+ *                   type: string
+ *                   description: Token JWT para autenticação
+ *       401:
+ *         description: Credenciais inválidas
+ */
+router.post('/authenticate', authenticateController.authenticate);
 
 // User routes
 /**
  * @swagger
  * /users:
  *   get:
- *     summary: Recuperar uma lista de usuários
+ *     summary: Buscar uma lista de usuários
  *     tags: [Users]
  *     responses:
  *       200:
@@ -102,7 +102,7 @@ router.get('/users', userController.getAllUsers);
  * @swagger
  * /users/{id}:
  *   get:
- *     summary: Recuperar um único usuário
+ *     summary: Buscar um único usuário
  *     tags: [Users]
  *     parameters:
  *       - in: path
@@ -200,12 +200,132 @@ router.put('/users/:id', userController.updateUser);
  */
 router.delete('/users/:id', userController.deleteUser);
 
+// Product routes
+/**
+ * @swagger
+ * /products:
+ *   get:
+ *     summary: Buscar uma lista de produtos
+ *     tags: [Products]
+ *     responses:
+ *       200:
+ *         description: Lista de produtos
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: array
+ *               items:
+ *                 $ref: '#/components/schemas/Product'
+ */
+router.get('/products', productController.getAllProducts);
+/**
+ * @swagger
+ * /products/{id}:
+ *   get:
+ *     summary: Buscar um único produto
+ *     tags: [Products]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID do produto
+ *     responses:
+ *       200:
+ *         description: Um único produto
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Product'
+ *       404:
+ *         description: Usuário não encontrado
+ */
+router.get('/products/:id', productController.getProductById);
+/**
+ * @swagger
+ * /products:
+ *   post:
+ *     summary: Criar um novo produto
+ *     tags: [Products]
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Product'
+ *     responses:
+ *       201:
+ *         description: Produto criado com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Product'
+ *       500:
+ *         description: Erro interno do servidor
+ */
+router.post('/products', productController.createProduct);
+/**
+ * @swagger
+ * /products/{id}:
+ *   put:
+ *     summary: Atualizar um produto
+ *     tags: [Products]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID do produto
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Product'
+ *     responses:
+ *       200:
+ *         description: Produto atualizado
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Product'
+ *       404:
+ *         description: Usuário não encontrado
+ *       500:
+ *         description: Erro no servidor
+ */
+router.put('/products/:id', productController.updateProduct);
+/**
+ * @swagger
+ * /products/{id}:
+ *   delete:
+ *     summary: Deletar um produto
+ *     tags: [Products]
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         schema:
+ *           type: integer
+ *         required: true
+ *         description: ID do produto
+ *     responses:
+ *       204:
+ *         description: Sem corpo da resposta
+ *       404:
+ *         description: Produto não encontrado
+ *       500:
+ *         description: Erro no servidor
+ */
+router.delete('/products/:id', productController.deleteProduct);
+
 // // Category routes
 /**
  * @swagger
  * /categories:
  *   get:
- *     summary: Recuperar uma lista de categoria
+ *     summary: Buscar uma lista de categoria
  *     tags: [Categories]
  *     responses:
  *       200:
@@ -222,7 +342,7 @@ router.get('/categories', categoryController.getAllCategories);
  * @swagger
  * /categories/{id}:
  *   get:
- *     summary: Recuperar uma única categoria
+ *     summary: Buscar uma única categoria
  *     tags: [Categories]
  *     parameters:
  *       - in: path
@@ -325,7 +445,7 @@ router.delete('/categories/:id', categoryController.deleteCategory);
  * @swagger
  * /orders:
  *   get:
- *     summary: Recuperar uma lista de pedidos
+ *     summary: Buscar uma lista de pedidos
  *     tags: [Orders]
  *     responses:
  *       200:
@@ -342,7 +462,7 @@ router.get('/orders', orderController.getAllOrders);
  * @swagger
  * /orders/{id}:
  *   get:
- *     summary: Recuperar um único pedido
+ *     summary: Buscar um único pedido
  *     tags: [Orders]
  *     parameters:
  *       - in: path
@@ -367,7 +487,7 @@ router.get('/orders/:id', orderController.getOrderById);
  * /orders:
  *   post:
  *     summary: Criar um novo pedido
- *     tags: [Products]
+ *     tags: [Orders]
  *     requestBody:
  *       required: true
  *       content:
@@ -438,132 +558,12 @@ router.put('/orders/:id', orderController.updateOrder);
  */
 router.delete('/orders/:id', orderController.deleteOrder);
 
-// Product routes
-/**
- * @swagger
- * /products:
- *   get:
- *     summary: Recuperar uma lista de produtos
- *     tags: [Products]
- *     responses:
- *       200:
- *         description: Lista de produtos
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 $ref: '#/components/schemas/Product'
- */
-router.get('/products', productController.getAllProducts);
-/**
- * @swagger
- * /products/{id}:
- *   get:
- *     summary: Recuperar um único produto
- *     tags: [Products]
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: integer
- *         required: true
- *         description: ID do produto
- *     responses:
- *       200:
- *         description: Um único produto
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Product'
- *       404:
- *         description: Usuário não encontrado
- */
-router.get('/products/:id', productController.getProductById);
-/**
- * @swagger
- * /products:
- *   post:
- *     summary: Criar um novo produto
- *     tags: [Products]
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Product'
- *     responses:
- *       201:
- *         description: Produto criado com sucesso
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Product'
- *       500:
- *         description: Erro interno do servidor
- */
-router.post('/products', productController.createProduct);
-/**
- * @swagger
- * /products/{id}:
- *   put:
- *     summary: Atualizar um produto
- *     tags: [Products]
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: integer
- *         required: true
- *         description: ID do produto
- *     requestBody:
- *       required: true
- *       content:
- *         application/json:
- *           schema:
- *             $ref: '#/components/schemas/Product'
- *     responses:
- *       200:
- *         description: Produto atualizado
- *         content:
- *           application/json:
- *             schema:
- *               $ref: '#/components/schemas/Product'
- *       404:
- *         description: Usuário não encontrado
- *       500:
- *         description: Erro no servidor
- */
-router.put('/products/:id', productController.updateProduct);
-/**
- * @swagger
- * /products/{id}:
- *   delete:
- *     summary: Deletar um produto
- *     tags: [Products]
- *     parameters:
- *       - in: path
- *         name: id
- *         schema:
- *           type: integer
- *         required: true
- *         description: ID do produto
- *     responses:
- *       204:
- *         description: Sem corpo da resposta
- *       404:
- *         description: Produto não encontrado
- *       500:
- *         description: Erro no servidor
- */
-router.delete('/products/:id', productController.deleteProduct);
-
 // ProductImages routes
 /**
  * @swagger
  * /imageProduct:
  *   get:
- *     summary: Recuperar uma lista de imagens
+ *     summary: Buscar uma lista de imagens
  *     tags: [ImageProduct]
  *     responses:
  *       200:
@@ -580,7 +580,7 @@ router.get('/imageProduct', imageProductController.getAllImageProducts);
  * @swagger
  * /imageProduct/{id}:
  *   get:
- *     summary: Recuperar uma única imagem
+ *     summary: Buscar uma única imagem
  *     tags: [ImageProduct]
  *     parameters:
  *       - in: path
@@ -683,7 +683,7 @@ router.delete('/imageProduct/:id', imageProductController.deleteImageProduct)
  * @swagger
  * /images:
  *   get:
- *     summary: Recuperar uma lista de imagens
+ *     summary: Buscar uma lista de imagens
  *     tags: [Images]
  *     responses:
  *       200:
@@ -700,7 +700,7 @@ router.get('/images', imageController.getAllImages);
  * @swagger
  * /images/{id}:
  *   get:
- *     summary: Recuperar uma única imagem
+ *     summary: Buscar uma única imagem
  *     tags: [Images]
  *     parameters:
  *       - in: path
@@ -803,7 +803,7 @@ router.delete('/images/:id', imageController.deleteImage);
  * @swagger
  * /options:
  *   get:
- *     summary: Recuperar uma lista de opções do produto
+ *     summary: Buscar uma lista de opções do produto
  *     tags: [OptionsProducts]
  *     responses:
  *       200:
@@ -820,7 +820,7 @@ router.get('/options', optionsProductController.getAllOptionsProduct);
  * @swagger
  * /options/{id}:
  *   get:
- *     summary: Recuperar uma única opção de produto
+ *     summary: Buscar uma única opção de produto
  *     tags: [OptionsProducts]
  *     parameters:
  *       - in: path
@@ -923,7 +923,7 @@ router.delete('/options/:id', optionsProductController.deleteOption);
  * @swagger
  * /optionscategory:
  *   get:
- *     summary: Recuperar uma lista de opções de categoria do produtos
+ *     summary: Buscar uma lista de opções de categoria do produtos
  *     tags: [OptionsCategory]
  *     responses:
  *       200:
@@ -940,7 +940,7 @@ router.get('/optionscategory', productCategoryController.getAllProductCategory);
  * @swagger
  * /optionscategory/{id}:
  *   get:
- *     summary: Recuperar uma única opção de categoria do produto
+ *     summary: Buscar uma única opção de categoria do produto
  *     tags: [OptionsCategory]
  *     parameters:
  *       - in: path
@@ -1043,7 +1043,7 @@ router.delete('/optionscategory/:id', productCategoryController.deleteProductCat
  * @swagger
  * /sales:
  *   get:
- *     summary: Recuperar uma lista de vendas
+ *     summary: Buscar uma lista de vendas
  *     tags: [Sales]
  *     responses:
  *       200:
@@ -1060,7 +1060,7 @@ router.get('/sales', saleController.getAllSales);
  * @swagger
  * /sales/{id}:
  *   get:
- *     summary: Recuperar uma compra
+ *     summary: Buscar uma venda
  *     tags: [Sales]
  *     parameters:
  *       - in: path
