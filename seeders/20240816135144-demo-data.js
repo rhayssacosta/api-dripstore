@@ -5,28 +5,29 @@ module.exports = {
   async up(queryInterface, Sequelize) {
 
     await queryInterface.bulkInsert('Users', [
-      { username: 'Ana Paula', cpf: '123.456.789-01', email: 'ana.paula@example.com', phone: '(11) 91234-5678', password: 'senhaSegura1', address: 'Rua das Flores, 123', district: 'Centro', city: 'São Paulo', complemente: 'Apto 45', createdAt: Sequelize.fn('now'), updatedAt: Sequelize.fn('now') },
+      { username: 'Ana Paula', cpf: '12345678901', email: 'ana.paula@example.com', phone: '(11) 91234-5678', password: 'senhaSegura1', address: 'Rua das Flores, 123', district: 'Centro', city: 'São Paulo', complemente: 'Apto 45', createdAt: Sequelize.fn('now'), updatedAt: Sequelize.fn('now') },
 
-      { username: 'Bruno Henrique', cpf: '234.567.890-12', email: 'bruno.henrique@example.com', phone: '(21) 99876-5432', password: 'senhaSegura2', address: 'Avenida Brasil, 456', district: 'Copacabana', city: 'Rio de Janeiro', complemente: 'Casa 1', createdAt: Sequelize.fn('now'), updatedAt: Sequelize.fn('now') },
+      { username: 'Bruno Henrique', cpf: '23456789012', email: 'bruno.henrique@example.com', phone: '(21) 99876-5432', password: 'senhaSegura2', address: 'Avenida Brasil, 456', district: 'Copacabana', city: 'Rio de Janeiro', complemente: 'Casa 1', createdAt: Sequelize.fn('now'), updatedAt: Sequelize.fn('now') },
 
-      { username: 'Carla Silva', cpf: '345.678.901-23', email: 'carla.silva@example.com', phone: '(31) 98765-4321', password: 'senhaSegura3', address: 'Rua Minas Gerais, 789', district: 'Savassi', city: 'Belo Horizonte', complemente: 'Apto 101', createdAt: Sequelize.fn('now'), updatedAt: Sequelize.fn('now') },
+      { username: 'Carla Silva', cpf: '34567890123', email: 'carla.silva@example.com', phone: '(31) 98765-4321', password: 'senhaSegura3', address: 'Rua Minas Gerais, 789', district: 'Savassi', city: 'Belo Horizonte', complemente: 'Apto 101', createdAt: Sequelize.fn('now'), updatedAt: Sequelize.fn('now') },
 
-      { username: 'Diego Souza', cpf: '456.789.012-34', email: 'diego.souza@example.com', phone: '(41) 97654-3210', password: 'senhaSegura4', address: 'Rua Curitiba, 101', district: 'Centro Cívico', city: 'Curitiba', complemente: 'Bloco B, Sala 12', createdAt: Sequelize.fn('now'), updatedAt: Sequelize.fn('now') },
+      { username: 'Diego Souza', cpf: '45678901234', email: 'diego.souza@example.com', phone: '(41) 97654-3210', password: 'senhaSegura4', address: 'Rua Curitiba, 101', district: 'Centro Cívico', city: 'Curitiba', complemente: 'Bloco B, Sala 12', createdAt: Sequelize.fn('now'), updatedAt: Sequelize.fn('now') },
 
-      { username: 'Fernanda Costa', cpf: '567.890.123-45', email: 'fernanda.costa@example.com', phone: '(51) 96543-2109', password: 'senhaSegura5', address: 'Avenida Ipiranga, 202', district: 'Centro Histórico', city: 'Porto Alegre', complemente: 'Cobertura 5', createdAt: Sequelize.fn('now'), updatedAt: Sequelize.fn('now') },
+      { username: 'Fernanda Costa', cpf: '56789012345', email: 'fernanda.costa@example.com', phone: '(51) 96543-2109', password: 'senhaSegura5', address: 'Avenida Ipiranga, 202', district: 'Centro Histórico', city: 'Porto Alegre', complemente: 'Cobertura 5', createdAt: Sequelize.fn('now'), updatedAt: Sequelize.fn('now') },
 
-      { username: 'Carlos Eduardo', cpf: '987.654.321-00', email: 'carlos.eduardo@example.com', phone: '(21) 98765-4321', password: 'senhaSegura2', address: 'Av. Brasil, 456', district: 'Copacabana', city: 'Rio de Janeiro', complemente: 'Casa 2', createdAt: Sequelize.fn('now'), updatedAt: Sequelize.fn('now') },
+      { username: 'Carlos Eduardo', cpf: '98765432100', email: 'carlos.eduardo@example.com', phone: '(21) 98765-4321', password: 'senhaSegura2', address: 'Av. Brasil, 456', district: 'Copacabana', city: 'Rio de Janeiro', complemente: 'Casa 2', createdAt: Sequelize.fn('now'), updatedAt: Sequelize.fn('now') },
 
-      { username: 'Juliana Oliveira', cpf: '321.654.987-12', email: 'juliana.oliveira@example.com', phone: '(31) 99876-5432', password: 'senhaSegura3', address: 'Rua da Paz, 789', district: 'Savassi', city: 'Belo Horizonte', complemente: 'Bloco B, Apto 301', createdAt: Sequelize.fn('now'), updatedAt: Sequelize.fn('now') },
+      { username: 'Juliana Oliveira', cpf: '32165498712', email: 'juliana.oliveira@example.com', phone: '(31) 99876-5432', password: 'senhaSegura3', address: 'Rua da Paz, 789', district: 'Savassi', city: 'Belo Horizonte', complemente: 'Bloco B, Apto 301', createdAt: Sequelize.fn('now'), updatedAt: Sequelize.fn('now') },
 
-      { username: 'Pedro Henrique', cpf: '456.789.123-34', email: 'pedro.henrique@example.com', phone: '(41) 91234-5678', password: 'senhaSegura4', address: 'Av. Paraná, 101', district: 'Centro Cívico', city: 'Curitiba', complemente: 'Cobertura 2', createdAt: Sequelize.fn('now'), updatedAt: Sequelize.fn('now') },
+      { username: 'Pedro Henrique', cpf: '45678912334', email: 'pedro.henrique@example.com', phone: '(41) 91234-5678', password: 'senhaSegura4', address: 'Av. Paraná, 101', district: 'Centro Cívico', city: 'Curitiba', complemente: 'Cobertura 2', createdAt: Sequelize.fn('now'), updatedAt: Sequelize.fn('now') },
 
-      { username: 'Mariana Silva', cpf: '789.123.456-56', email: 'mariana.silva@example.com', phone: '(51) 98765-4321', password: 'senhaSegura5', address: 'Rua das Palmeiras, 303', district: 'Moinhos de Vento', city: 'Porto Alegre', complemente: 'Apto 104', createdAt: Sequelize.fn('now'), updatedAt: Sequelize.fn('now') },
+      { username: 'Mariana Silva', cpf: '78912345656', email: 'mariana.silva@example.com', phone: '(51) 98765-4321', password: 'senhaSegura5', address: 'Rua das Palmeiras, 303', district: 'Moinhos de Vento', city: 'Porto Alegre', complemente: 'Apto 104', createdAt: Sequelize.fn('now'), updatedAt: Sequelize.fn('now') },
 
-      { username: 'Fernando Souza', cpf: '159.753.852-68', email: 'fernando.souza@example.com', phone: '(61) 99876-5432', password: 'senhaSegura6', address: 'Quadra 7, Bloco 12', district: 'Asa Norte', city: 'Brasília', complemente: 'Apto 302', createdAt: Sequelize.fn('now'), updatedAt: Sequelize.fn('now') },
+      { username: 'Fernando Souza', cpf: '15975385268', email: 'fernando.souza@example.com', phone: '(61) 99876-5432', password: 'senhaSegura6', address: 'Quadra 7, Bloco 12', district: 'Asa Norte', city: 'Brasília', complemente: 'Apto 302', createdAt: Sequelize.fn('now'), updatedAt: Sequelize.fn('now') },
 
-      { username: 'Bianca Rocha', cpf: '852.951.753-79', email: 'bianca.rocha@example.com', phone: '(71) 91234-5678', password: 'senhaSegura7', address: 'Rua das Laranjeiras, 56', district: 'Pituba', city: 'Salvador', complemente: 'Casa 1', createdAt: Sequelize.fn('now'), updatedAt: Sequelize.fn('now') },
-    
+      { username: 'Bianca Rocha', cpf: '85295175379', email: 'bianca.rocha@example.com', phone: '(71) 91234-5678', password: 'senhaSegura7', address: 'Rua das Laranjeiras, 56', district: 'Pituba', city: 'Salvador', complemente: 'Casa 1', createdAt: Sequelize.fn('now'), updatedAt: Sequelize.fn('now') },
+
+
     ], {});
 
     await queryInterface.bulkInsert('Products', [
@@ -50,7 +51,7 @@ module.exports = {
 
       { enabled: true, name: "Boné Esportivo UV", slug: "bone-esportivo-uv", use_in_menu: true, stock: 120, description: "Boné esportivo com proteção UV, leve e ajustável.", price: 49.90, price_with_discount: 39.90, createdAt: Sequelize.fn('now'), updatedAt: Sequelize.fn('now') },
 
-    ], {}); 
+    ], {});
 
     await queryInterface.bulkInsert('Categories', [
       { name: 'Tênis de Corrida', slug: 'tenis-de-corrida', use_in_menu: true, createdAt: Sequelize.fn('now'), updatedAt: Sequelize.fn('now') },
@@ -64,7 +65,7 @@ module.exports = {
       { name: 'Moda Casual', slug: 'moda-casual', use_in_menu: false, createdAt: Sequelize.fn('now'), updatedAt: Sequelize.fn('now') },
 
       { name: 'Suplementos Alimentares', slug: 'suplementos-alimentares', use_in_menu: true, createdAt: Sequelize.fn('now'), updatedAt: Sequelize.fn('now') },
-    
+
     ], {});
 
     await queryInterface.bulkInsert('Images', [
@@ -79,7 +80,7 @@ module.exports = {
       { name: 'Tênis casual Fila', url: '../assets/tenis-catalogo.png', createdAt: Sequelize.fn('now'), updatedAt: Sequelize.fn('now') },
 
       { name: 'Tênis caminhada Puma', url: '../assets/tenis-catalogo.png', createdAt: Sequelize.fn('now'), updatedAt: Sequelize.fn('now') },
-    
+
     ])
   },
 

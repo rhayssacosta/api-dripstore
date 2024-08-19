@@ -3,7 +3,7 @@ const { Image } = require('../models');
 
 const getAllImages = async (request, response) => {
     try {
-        const images = await Image.finAll();
+        const images = await Image.findAll();
         response.status(200).json(images);
     } catch (error) {
         response.status(500).json({ error: error.message });

@@ -8,9 +8,9 @@ require('dotenv').config();
 
 const register = async (request, response) => {
     try {
-        /*
-           antes de processar, validar se o emais ja existe
-        */
+        if (await User.findOne({
+            where: { email: request.body.email }
+        })) return response.status(409).send('Email ja existente');
 
         const hashedPassword = await bcrypt.hash(request.body.password, 10);
 
@@ -27,9 +27,10 @@ const register = async (request, response) => {
         };
 
         const newUser = await User.create(user);
-        response.status(201).send({ message: "Usuário registrado com sucesso" });
-    } catch {
-        response.status(500).send('Erro ao registrar usuário.');
+        response.status(201).send({ message: "Usuário registrado com sucesso!", user: newUser });
+    } catch (error) {
+        // Retorna um erro com status 500 em caso de falha
+        response.status(500).json({ error: error });
     }
 };
 
