@@ -3,7 +3,7 @@
 API desenvolvida como método de avaliação do encerramento do módulo backend do programa Geração Tech.
 
 ### Equipe:
-- Antonio 
+- Antonio Neto
 - Bruno Saraiva
 - Rhayssa Costa
 - Wanessa Loureiro
