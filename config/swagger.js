@@ -12,7 +12,7 @@ const options = {
         },
         servers: [
             {
-                url: 'http://localhost:3005/api',
+                url: 'http://localhost:10000/api',
             },
         ],
         components: {
